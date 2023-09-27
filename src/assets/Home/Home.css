@@ -1,0 +1,26 @@
+.photo{
+    width: 80px;
+    border-radius: 50px;
+ 
+}
+.info{
+    display: flex;
+    gap: 20px;
+}
+.card-container{
+ width: 600px;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 20px;
+
+
+}
+.card{
+    border: 2px solid black;
+    padding: 10px;
+    border-radius: 20px;
+}
+.container{
+    display: flex;
+}
+
