@@ -4,11 +4,13 @@
 import { useEffect } from 'react';
 import './Home.css'
 import { useState } from 'react';
+import Cart from '../Cart/Cart';
 
 
 const Home = () => {
 
     const [allPlayer, setAllPlayer] = useState([])
+    const [selectedPlayer, setSelectedPlayer] = useState([])
 
 useEffect(()=>{
     fetch('./data.json')
@@ -16,9 +18,29 @@ useEffect(()=>{
     .then(data => setAllPlayer(data))
 },[])
 
+    const handleSelectedPlayer = (player) =>{
+        const isExist = selectedPlayer.find(item => item.id == player.id)
+
+        let count = player.salary
 
 
-   
+      if(isExist){
+       return alert('Player is Already Booked')
+      }
+      else{
+        selectedPlayer.forEach(item =>{
+           count +=  item.salary
+           
+        })
+
+        const totalRemaining = 20000 - count;
+        console.log(totalRemaining);
+        setSelectedPlayer([...selectedPlayer,player])
+       
+
+      }
+       
+    }
 
     return (
 
@@ -43,7 +65,7 @@ useEffect(()=>{
                     <h4>{player.salary}$</h4>
                     <h4>{player.role}</h4>
             </div>
-            <button>Select</button>
+            <button onClick={()=>handleSelectedPlayer(player)} className='btn'>Select</button>
                 </div>
                 ))
             }
@@ -51,7 +73,7 @@ useEffect(()=>{
             </div>
 
             <div className="cart">
-            <h3>This is cart</h3>
+            <Cart selectedPlayer={selectedPlayer}></Cart>
             </div>
         </div>
     );
