@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/jsx-key */
 
 
@@ -7,10 +8,14 @@ import { useState } from 'react';
 import Cart from '../Cart/Cart';
 
 
+
+
 const Home = () => {
 
     const [allPlayer, setAllPlayer] = useState([])
     const [selectedPlayer, setSelectedPlayer] = useState([])
+    const [remaining, setRemaining] = useState(0)
+    const [totalCost, setTotalCost] = useState(0)
 
 useEffect(()=>{
     fetch('./data.json')
@@ -34,8 +39,15 @@ useEffect(()=>{
         })
 
         const totalRemaining = 20000 - count;
-        console.log(totalRemaining);
+        if(count > 20000){
+            return alert('Taka sesh ar hobena')
+        }
+    else{
+        setTotalCost(count)
+        setRemaining(totalRemaining);
         setSelectedPlayer([...selectedPlayer,player])
+    }
+      
        
 
       }
@@ -73,7 +85,7 @@ useEffect(()=>{
             </div>
 
             <div className="cart">
-            <Cart selectedPlayer={selectedPlayer}></Cart>
+            <Cart selectedPlayer={selectedPlayer} remaining={remaining} totalCost={totalCost}></Cart>
             </div>
         </div>
     );
